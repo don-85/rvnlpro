@@ -18,7 +18,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: #0d0d0d; /* Dark blockchain-themed background */
+    background: rgb(248, 250, 250); /* Dark blockchain-themed background */
     z-index: -1;
 }
 
@@ -146,12 +146,12 @@
 <body>
     <div id="particles-js"></div>
     <nav class="navbar">
-        <div class="logo">Rivernile Token</div>
+        <div class="logo">River Nile Token</div>
         <div class="menu">
             <a href="#">Home</a>
             <a href="#">About</a>
             <a href="#">Tokenomics</a>
-            <a href="#">Contact</a>
+            <a href="#">Contact Us</a>
         </div>
         <button id="connectWallet" class="wallet-button">Connect Wallet</button>
     </nav>
@@ -161,32 +161,33 @@
     </div>
     
     <main class="content">
-        <h1>Welcome to Rivernile Token</h1>
-        <p>Your gateway to decentralized financial solutions.</p>
+        <h1>Welcome to River Nile Token</h1>
+        <p>Your gateway to decentralized financial solutions (DeFi).</p>
 
         <div class="staking-container">
-            <h2>Stake Your RVNL</h2>
-            <div class="stake-options">
-                <label for="stakeAmount">Amount to Stake (RVNL):</label>
-                <input type="number" id="stakeAmount" placeholder="Enter amount" />
-            </div>
-            <div class="stake-options">
-                <label>
-                    <input type="radio" name="stakeDuration" value="3" />
-                    3 Months (10% Rewards)
-                </label>
-                <label>
-                    <input type="radio" name="stakeDuration" value="6" />
-                    6 Months (25% Rewards)
-                </label>
-                <label>
-                    <input type="radio" name="stakeDuration" value="12" />
-                    12 Months (50% Rewards)
-                </label>
-            </div>
-            <button id="stakeButton" class="wallet-button">Stake Now</button>
-            <div class="stake-result" id="stakeResult"></div>
-        </div>
+    <h2>Stake Your RVNL</h2>
+    <div class="stake-options">
+        <label for="stakeAmount">Amount to Stake (RVNL):</label>
+        <input type="number" id="stakeAmount" placeholder="Enter amount" />
+    </div>
+    <div class="stake-options">
+        <label>
+            <input type="radio" name="stakeDuration" value="3" />
+            3 Months (APY 10% Rewards)
+        </label>
+        <label>
+            <input type="radio" name="stakeDuration" value="6" />
+            6 Months (APY 25% Rewards)
+        </label>
+        <label>
+            <input type="radio" name="stakeDuration" value="12" />
+            12 Months (APY 50% Rewards)
+        </label>
+    </div>
+    <button id="stakeButton" class="wallet-button">Stake Now</button>
+    <div class="stake-result" id="stakeResult"></div>
+</div>
+
     </main>
     <footer>
         <div class="social-links">
