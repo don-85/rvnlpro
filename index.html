@@ -11,16 +11,16 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            /* background: #be4e4; */
             color: #333333;
         }
+
         #particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgb(248, 250, 250); /* Dark blockchain-themed background */
-    z-index: -1;
-}
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgb(248, 250, 250);
+            z-index: -1;
+        }
 
         .navbar {
             display: flex;
@@ -32,23 +32,24 @@
         }
 
         .price-up {
-    color: #28a745; /* Green for price increase */
-}
+            color: #28a745;
+        }
 
-.price-down {
-    color: #dc3545; /* Red for price decrease */
-}
-.crypto-ticker img {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-}
-.crypto-ticker span {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 15px;
-}
+        .price-down {
+            color: #dc3545;
+        }
 
+        .crypto-ticker img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .crypto-ticker span {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+        }
 
         .logo {
             font-size: 1.5em;
@@ -159,238 +160,244 @@
     <div class="crypto-ticker-container">
         <div class="crypto-ticker" id="cryptoTicker"></div>
     </div>
-    
+
     <main class="content">
         <h1>Welcome to River Nile Token</h1>
         <p>Your gateway to decentralized financial solutions (DeFi).</p>
 
         <div class="staking-container">
-    <h2>Stake Your RVNL</h2>
-    <div class="stake-options">
-        <label for="stakeAmount">Amount to Stake (RVNL):</label>
-        <input type="number" id="stakeAmount" placeholder="Enter amount" />
-    </div>
-    <div class="stake-options">
-        <label>
-            <input type="radio" name="stakeDuration" value="3" />
-            3 Months (APY 10% Rewards)
-        </label>
-        <label>
-            <input type="radio" name="stakeDuration" value="6" />
-            6 Months (APY 25% Rewards)
-        </label>
-        <label>
-            <input type="radio" name="stakeDuration" value="12" />
-            12 Months (APY 50% Rewards)
-        </label>
-    </div>
-    <button id="stakeButton" class="wallet-button">Stake Now</button>
-    <div class="stake-result" id="stakeResult"></div>
-</div>
+            <h2>Stake Your RVNL</h2>
+            <div class="stake-options">
+                <label for="stakeAmount">Amount to Stake (RVNL):</label>
+                <input type="number" id="stakeAmount" placeholder="Enter amount" />
+            </div>
+            <div class="stake-options">
+                <label>
+                    <input type="radio" name="stakeDuration" value="3" />
+                    3 Months (APY 10% Rewards)
+                </label>
+                <label>
+                    <input type="radio" name="stakeDuration" value="6" />
+                    6 Months (APY 25% Rewards)
+                </label>
+                <label>
+                    <input type="radio" name="stakeDuration" value="12" />
+                    12 Months (APY 50% Rewards)
+                </label>
+            </div>
+            <button id="stakeButton" class="wallet-button">Stake Now</button>
+            <div class="stake-result" id="stakeResult"></div>
+        </div>
 
     </main>
     <footer>
         <div class="social-links">
-            <a href="https://x.com" target="_blank"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/2/2f/X_logo.svg" alt="X"></a>
-            <a href="https://t.me" target="_blank"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
-            <a href="https://instagram.com" target="_blank"><img
-                    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
+            <a href="https://x.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/X_logo.svg" alt="X"></a>
+            <a href="https://t.me" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram"></a>
+            <a href="https://instagram.com" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram"></a>
         </div>
         <p>© 2025 River Nile Token. All rights reserved.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const walletButton = document.getElementById('connectWallet');
-        const cryptoTicker = document.getElementById('cryptoTicker');
-        const stakeButton = document.getElementById('stakeButton');
-        const stakeResult = document.getElementById('stakeResult');
-        const BEP20_ADDRESS = "0xec7A4Af44Eaa4c7afd9C65a1bfAD8877a4aEb635";
-        const RVNL_CONTRACT = "0xfD176Df359fD5E0D05C863606FB9319b26c53aA5";
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const walletButton = document.getElementById('connectWallet');
+            const cryptoTicker = document.getElementById('cryptoTicker');
+            const stakeButton = document.getElementById('stakeButton');
+            const stakeResult = document.getElementById('stakeResult');
+            const BEP20_ADDRESS = "0xec7A4Af44Eaa4c7afd9C65a1bfAD8877a4aEb635";
+            const RVNL_CONTRACT = "0xfD176Df359fD5E0D05C863606FB9319b26c53aA5";
 
-        let previousPrices = {}; // To track previous prices for comparison
+            let previousPrices = {}; // To track previous prices for comparison
 
-        // Function to fetch cryptocurrency prices
-        async function fetchCryptoPrices() {
-        try {
-            const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
-            if (!response.ok) {
-                throw new Error("Failed to fetch cryptocurrency prices.");
-            }
-            const data = await response.json();
-
-            // Generate ticker content with logos and price changes
-            cryptoTicker.innerHTML = data.map(crypto => {
-                const { id, name, current_price, price_change_percentage_24h, image } = crypto;
-
-                // Determine price change class
-                const priceClass = previousPrices[id] && current_price > previousPrices[id] ? 'price-up' :
-                                   previousPrices[id] && current_price < previousPrices[id] ? 'price-down' : '';
-
-                // Update previous prices
-                previousPrices[id] = current_price;
-
-                return `
-                    <span>
-                        <img src="${image}" alt="${name}" title="${name}">
-                        <strong>${name}</strong>: 
-                        <span class="${priceClass}">$${current_price.toFixed(2)}</span>
-                    </span>
-                `;
-            }).join("");
-        } catch (error) {
-            console.error("Error fetching crypto prices:", error);
-        }
-    }
-
-    // Fetch cryptocurrency prices every 10 seconds
-    fetchCryptoPrices();
-    setInterval(fetchCryptoPrices, 10000);
-
-        // Connect wallet functionality
-        walletButton.addEventListener('click', async () => {
-            if (typeof window.ethereum !== 'undefined') {
+            // Function to fetch cryptocurrency prices
+            async function fetchCryptoPrices() {
                 try {
-                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                    const userWallet = accounts[0];
-                    alert(`Connected: ${userWallet}`);
+                    const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch cryptocurrency prices.");
+                    }
+                    const data = await response.json();
+
+                    // Generate ticker content with logos and price changes
+                    cryptoTicker.innerHTML = data.map(crypto => {
+                        const { id, name, current_price, price_change_percentage_24h, image } = crypto;
+
+                        // Determine price change class
+                        const priceClass = previousPrices[id] && current_price > previousPrices[id] ? 'price-up' :
+                                           previousPrices[id] && current_price < previousPrices[id] ? 'price-down' : '';
+
+                        // Update previous prices
+                        previousPrices[id] = current_price;
+
+                        return `
+                            <span>
+                                <img src="${image}" alt="${name}" title="${name}">
+                                <strong>${name}</strong>: 
+                                <span class="${priceClass}">$${current_price.toFixed(2)}</span>
+                            </span>
+                        `;
+                    }).join("");
                 } catch (error) {
-                    console.error(error);
-                    alert('Wallet connection failed.');
+                    console.error("Error fetching crypto prices:", error);
                 }
-            } else {
-                alert('MetaMask not detected. Please install it!');
             }
+
+            // Fetch cryptocurrency prices every 10 seconds
+            fetchCryptoPrices();
+            setInterval(fetchCryptoPrices, 10000);
+
+            // Connect wallet functionality
+            walletButton.addEventListener('click', async () => {
+                if (typeof window.ethereum !== 'undefined') {
+                    try {
+                        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                        const userWallet = accounts[0];
+                        alert(`Connected: ${userWallet}`);
+                    } catch (error) {
+                        console.error(error);
+                        alert('Wallet connection failed.');
+                    }
+                } else {
+                    alert('MetaMask not detected. Please install it!');
+                }
+            });
+
+            // Staking functionality
+            stakeButton.addEventListener('click', () => {
+                const amount = parseFloat(document.getElementById('stakeAmount').value);
+                const duration = parseInt(document.querySelector('input[name="stakeDuration"]:checked')?.value);
+                if (!amount || !duration) {
+                    stakeResult.innerText = "Please enter an amount and select a staking duration.";
+                    return;
+                }
+                const rewards = {
+                    3: 10,
+                    6: 25,
+                    12: 50,
+                    dailyReward: function () {
+                        return this[12] / 365;
+                    }
+                };
+
+                const reward = (amount * rewards[duration]) / 100;
+                const dailyRewardPercentage = rewards.dailyReward();
+                const dailyReward = (amount * dailyRewardPercentage) / 100;
+
+                stakeResult.innerHTML = `
+                    <p>You staked ${amount} RVNL for ${duration} months.</p>
+                    <p>Total Rewards: ${reward.toFixed(4)} RVNL.</p>
+                    <p>24-Hour Rewards: ${dailyReward.toFixed(4)} RVNL.</p>
+                `;
+            });
         });
 
-        // Staking functionality
-        stakeButton.addEventListener('click', () => {
-            const amount = parseFloat(document.getElementById('stakeAmount').value);
-            const duration = parseInt(document.querySelector('input[name="stakeDuration"]:checked')?.value);
-            if (!amount || !duration) {
-                stakeResult.innerText = "Please enter an amount and select a staking duration.";
-                return;
-            }
-            const rewards = {
-                3: 10,
-                6: 25,
-                12: 50
-            };
-            const reward = (amount * rewards[duration]) / 100;
-            stakeResult.innerText = `You staked ${amount} RVNL for ${duration} months. Rewards: ${reward} RVNL.`;
-        });
-    });
-
-    particlesJS("particles-js", {
-    particles: {
-        number: {
-            value: 100,
-            density: {
-                enable: true,
-                value_area: 800
-            }
-        },
-        color: {
-            value: "#21b9b2"
-        },
-        shape: {
-            type: "circle",
-            stroke: {
-                width: 0,
-                color: "#000000"
-            },
-            polygon: {
-                nb_sides: 5
-            }
-        },
-        opacity: {
-            value: 0.5,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-            }
-        },
-        size: {
-            value: 3,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 3,
-                size_min: 0.1,
-                sync: false
-            }
-        },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#21b9b2",
-            opacity: 0.4,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            random: true,
-            straight: false,
-            out_mode: "out",
-            attract: {
-                enable: false,
-                rotateX: 600,
-                rotateY: 1200
-            }
-        }
-    },
-    interactivity: {
-        detect_on: "canvas",
-        events: {
-            onhover: {
-                enable: true,
-                mode: "grab"
-            },
-            onclick: {
-                enable: true,
-                mode: "push"
-            },
-            resize: true
-        },
-        modes: {
-            grab: {
-                distance: 140,
+        particlesJS("particles-js", {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: "#21b9b2"
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 3,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
                 line_linked: {
-                    opacity: 1
+                    enable: true,
+                    distance: 150,
+                    color: "#21b9b2",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
                 }
             },
-            bubble: {
-                distance: 400,
-                size: 40,
-                duration: 2,
-                opacity: 8,
-                speed: 3
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "grab"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
             },
-            repulse: {
-                distance: 200,
-                duration: 0.4
-            },
-            push: {
-                particles_nb: 4
-            },
-            remove: {
-                particles_nb: 2
-            }
-        }
-    },
-    retina_detect: true
-});
-
-</script>
-
+            retina_detect: true
+        });
+    </script>
 </body>
 
 </html>
